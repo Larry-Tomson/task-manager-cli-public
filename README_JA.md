@@ -26,8 +26,8 @@
 詳細は[要件](#要件)を参照してください
 
 ```bash
-git clone https:
-cd
+git clone https://github.com/Larry-Tomson/task-manager-cli-public.git
+cd task-manager-cli-public
 mvn clean install
 ```
 

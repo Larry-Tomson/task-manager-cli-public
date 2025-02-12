@@ -16,10 +16,11 @@ Simple task tracker to track what you need to do, what you have done, and what y
 ## Installation
 See [Requirement](#Requirement) 
 ```bash
-git clone https:
-cd
+git clone https://github.com/Larry-Tomson/task-manager-cli-public.git
+cd task-manager-cli-public
 mvn clean install
 ```
+
 ## Usage
 Passing Command-Line Arguments:
 ```bash
