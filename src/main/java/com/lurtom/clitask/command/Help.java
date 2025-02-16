@@ -15,12 +15,6 @@ public class Help implements Command {
     }
 
     @Override
-    public boolean validateArgsCount(String[] args) {
-        // do nothing
-        return true;
-    }
-
-    @Override
     public int getArgsCount() {
         // do nothing
         return 0;
@@ -30,5 +24,11 @@ public class Help implements Command {
     public String getHelp() {
         return "";
         // do nothing
+    }
+
+    @Override
+    public boolean validateArgsCount(String[] args) {
+        // do nothing
+        return true;
     }
 }

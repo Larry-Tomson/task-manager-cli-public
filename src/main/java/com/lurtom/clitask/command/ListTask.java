@@ -1,33 +1,22 @@
 package com.lurtom.clitask.command;
 
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import com.lurtom.clitask.util.*;
-import com.lurtom.clitask.repository.*;
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.*;
+import com.lurtom.clitask.repository.*;
+import com.lurtom.clitask.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ListTask extends BaseCommand implements Command {
     private static final int ARGS_COUNT_LIST_ALL = 1;
     private static final int ARGS_COUNT_LIST_BY_ID = 2;
-    private static final Logger logger = new Logger();
-
     private static final String LINE_FORMAT = "|  %-61s  |%n";
+
     private static final String LINE_FORMAT_NO_NEWLINE = "|  %-61s  |";
+    private static final Logger logger = new Logger();
 
     public ListTask(Repository repository, ConfigurationLoader confLoader) {
         super(repository, confLoader, 0);
-    }
-
-    @Override
-    public String getHelp() {
-        return confLoader.getValue("list.helpMessage");
-    }
-
-    @Override
-    public boolean validateArgsCount(String[] args) {
-        return args.length == ARGS_COUNT_LIST_ALL || args.length == ARGS_COUNT_LIST_BY_ID;
     }
 
     public void execute(String[] args) {
@@ -58,62 +47,14 @@ public class ListTask extends BaseCommand implements Command {
         renderTaskList(tasks);
     }
 
-    private void listTaskById(List<Task> tasks, int id) {
-        logger.info("Listing task with id {}", id);
-        tasks.stream()
-                .filter(t -> t.getId() == id)
-                .findFirst()
-                .ifPresentOrElse(this::renderTask,
-                        () -> {
-                            logger.warn("Task with id {} not found", id);
-                            CLIRenderer.warn("task " + id + " is not found");
-                        });
+    @Override
+    public String getHelp() {
+        return confLoader.getValue("list.helpMessage");
     }
 
-    private void renderTaskList(List<Task> tasks) {
-        String listTableTitle = confLoader.getValue("list.table.title");
-        String listTableDateFormat = confLoader.getValue("list.table.date.format");
-        String listTableRow = confLoader.getValue("list.table.row.format");
-
-        CLIRenderer.message(listTableTitle);
-        logger.info("rendering list for {} items ", tasks.size());
-        for (Task task : tasks) {
-            String description = task.getDescription();
-            // Truncate description if too long for table view
-            if (description.length() > 16) {
-                logger.debug("Description length exceeding 16[] truncating", description.length());
-                description = description.substring(0, 16) + "...";
-            }
-            String status = task.getStatus().getColorStr();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(listTableDateFormat);
-            CLIRenderer.message(String.format(
-                    listTableRow,
-                    task.getId(),
-                    status,
-                    task.getCreatedTime().format(formatter),
-                    task.getUpdatedTime().format(formatter),
-                    description));
-        }
-        CLIRenderer.message("");
-    }
-
-    private void renderTask(Task task) {
-        logger.info("task {} found, rendering task detail", task.getId());
-        String listByIdTitleFormat = "\n+------ TASK ------< Id %-3s > ----- < Status  %-22s >-----+";
-        String title = String.format(listByIdTitleFormat,
-                task.getId(),
-                task.getStatus().getColorStr());
-
-        String listByIdFooterFormat = "+---    Created: %-14s     Updated: %-15s   ---+%n";
-        String footer = String.format(listByIdFooterFormat,
-                CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG),
-                CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG));
-
-        String formattedDescription = formatDescription(task.getDescription());
-
-        CLIRenderer.message(title);
-        CLIRenderer.message(formattedDescription);
-        CLIRenderer.message(footer);
+    @Override
+    public boolean validateArgsCount(String[] args) {
+        return args.length == ARGS_COUNT_LIST_ALL || args.length == ARGS_COUNT_LIST_BY_ID;
     }
 
     private String formatDescription(String description) {
@@ -126,10 +67,13 @@ public class ListTask extends BaseCommand implements Command {
 
     private String formatLongDescription(String description) {
         logger.debug("description length > 65 ({}), rendering.", description.length());
+
         String[] words = description.split(" ");
         StringBuilder paragraph = new StringBuilder();
-        paragraph.append(String.format(LINE_FORMAT, ""));
         StringBuilder sentence = new StringBuilder();
+
+        paragraph.append(String.format(LINE_FORMAT, ""));
+
         int lineCount = 0;
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
@@ -156,9 +100,58 @@ public class ListTask extends BaseCommand implements Command {
 
     private String formatShortDescription(String description) {
         logger.debug("description length <= 65 ({}), rendering.", description.length());
-        return String.format(LINE_FORMAT, "") +
-                String.format(LINE_FORMAT, description) +
-                String.format(LINE_FORMAT_NO_NEWLINE, "");
+        return String.format(LINE_FORMAT, "") + //
+                        String.format(LINE_FORMAT, description) + //
+                        String.format(LINE_FORMAT_NO_NEWLINE, "");
     }
 
+    private void listTaskById(List<Task> tasks, int id) {
+        logger.info("Listing task with id {}", id);
+        tasks.stream().filter(t -> t.getId() == id) //
+                        .findFirst() //
+                        .ifPresentOrElse(this::renderTask, () -> { //
+                            logger.warn("Task with id {} not found", id);
+                            CLIRenderer.warn("task " + id + " is not found");
+                        });
+    }
+
+    private void renderTask(Task task) {
+        logger.info("task {} found, rendering task detail", task.getId());
+        String listByIdTitleFormat = "\n+------ TASK ------< Id %-3s > ----- < Status  %-22s >-----+";
+        String title = String.format(listByIdTitleFormat, task.getId(), task.getStatus().getColorStr());
+
+        String listByIdFooterFormat = "+---    Created: %-14s     Updated: %-15s   ---+%n";
+        String footer = String.format(listByIdFooterFormat,
+                        CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG),
+                        CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG));
+
+        String formattedDescription = formatDescription(task.getDescription());
+
+        CLIRenderer.message(title);
+        CLIRenderer.message(formattedDescription);
+        CLIRenderer.message(footer);
+    }
+
+    private void renderTaskList(List<Task> tasks) {
+        String listTableTitle = confLoader.getValue("list.table.title");
+        String listTableDateFormat = confLoader.getValue("list.table.date.format");
+        String listTableRow = confLoader.getValue("list.table.row.format");
+
+        CLIRenderer.message(listTableTitle);
+        logger.info("rendering list for {} items ", tasks.size());
+        for (Task task : tasks) {
+            String description = task.getDescription();
+            // Truncate description if too long for table view
+            if (description.length() > 16) {
+                logger.debug("Description length exceeding 16[] truncating", description.length());
+                description = description.substring(0, 16) + "...";
+            }
+            String status = task.getStatus().getColorStr();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(listTableDateFormat);
+            CLIRenderer.message(
+                            String.format(listTableRow, task.getId(), status, task.getCreatedTime().format(formatter),
+                                            task.getUpdatedTime().format(formatter), description));
+        }
+        CLIRenderer.message("");
+    }
 }

@@ -4,9 +4,9 @@ import com.lurtom.clitask.repository.Repository;
 import com.lurtom.clitask.util.ConfigurationLoader;
 
 public abstract class BaseCommand {
-    protected final Repository repository;
-    protected final ConfigurationLoader confLoader;
     protected final int argsCount;
+    protected final ConfigurationLoader confLoader;
+    protected final Repository repository;
 
     protected BaseCommand(Repository repository, ConfigurationLoader configurationLoader, int argsCount) {
         this.repository = repository;

@@ -1,18 +1,17 @@
 package com.lurtom.clitask.command;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.repository.Repository;
 import com.lurtom.clitask.util.CLIColor;
 import com.lurtom.clitask.util.CLIRenderer;
 import com.lurtom.clitask.util.ConfigurationLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommandHandler {
     private final Map<String, Command> commands = new HashMap<>();
-    private final Logger logger = new Logger();
     private final ConfigurationLoader configurationLoader;
+    private final Logger logger = new Logger();
 
     public CommandHandler(Repository repository, ConfigurationLoader configurationLoader) {
         this.configurationLoader = configurationLoader;

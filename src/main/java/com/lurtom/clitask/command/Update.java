@@ -1,17 +1,15 @@
 package com.lurtom.clitask.command;
 
-import com.lurtom.clitask.util.*;
-
-import java.util.Optional;
-
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.Task;
 import com.lurtom.clitask.model.TimeFormat;
 import com.lurtom.clitask.repository.Repository;
+import com.lurtom.clitask.util.*;
+import java.util.Optional;
 
 public class Update extends BaseCommand implements Command {
-    private final Logger logger = new Logger();
     private static final int ARGS_COUNT = 3;
+    private final Logger logger = new Logger();
 
     public Update(Repository repository, ConfigurationLoader confLoader) {
         super(repository, confLoader, ARGS_COUNT);
@@ -45,12 +43,11 @@ public class Update extends BaseCommand implements Command {
 
         Optional<Task> task = repository.update(parsedId, newDes);
 
-        task.ifPresentOrElse(t -> CLIRenderer.message(String.format(taskInfoFormat,
-                t.getId(),
-                CLIColor.GREEN + t.getDescription() + CLIColor.RESET,
-                t.getStatus().getValueStr(),
-                CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
-                CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))),
+        task.ifPresentOrElse(t -> CLIRenderer.message(String.format(taskInfoFormat, t.getId(), //
+                CLIColor.GREEN + t.getDescription() + CLIColor.RESET, //
+                t.getStatus().getValueStr(), //
+                CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG), //
+                CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))), //
                 () -> {
                     logger.warn("Task created failed, task is null");
                     CLIRenderer.message(outputNullErr);

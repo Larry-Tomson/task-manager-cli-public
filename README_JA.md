@@ -29,7 +29,7 @@
 git clone https://github.com/Larry-Tomson/task-manager-cli-public.git
 cd task-manager-cli-public
 mvn clean install
-```
+```6
 
 ## 使用方法
 

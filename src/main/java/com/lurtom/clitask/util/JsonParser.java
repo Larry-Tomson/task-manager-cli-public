@@ -1,12 +1,11 @@
 package com.lurtom.clitask.util;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.Status;
 import com.lurtom.clitask.model.Task;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonParser {
     private static final Logger logger = new Logger();
@@ -56,5 +55,4 @@ public class JsonParser {
         }
         return task;
     }
-
 }

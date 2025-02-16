@@ -1,9 +1,7 @@
 package com.lurtom.clitask.model;
 
 public enum TimeFormat {
-
-    SHORT("MM/dd HH:mm"),
-    LONG("yy/MM/dd HH:mm");
+    LONG("yy/MM/dd HH:mm"), SHORT("MM/dd HH:mm");
 
     private String format;
 

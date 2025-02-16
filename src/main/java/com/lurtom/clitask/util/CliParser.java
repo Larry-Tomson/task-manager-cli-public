@@ -1,8 +1,7 @@
 package com.lurtom.clitask.util;
 
-import java.util.Arrays;
-
 import com.lurtom.clitask.logger.Logger;
+import java.util.Arrays;
 
 public class CliParser {
     private static final Logger logger = new Logger();
@@ -11,6 +10,20 @@ public class CliParser {
         // implicit
     }
 
+    /* TODO & INFO:
+     * - add hello world"" -> valid
+     * - add hello         -> valid
+     * "three parts" works for :
+     *                          - update <id> <string>
+     *                          - mark <id> <string>
+     *
+     * !! handling validate argurments for 1/2 args and 3 args
+     * !! parsing into part not including " := simpler parsing logic
+     * if contains quotes : add, update, mark  ( split at /") parse for int
+     *                                    (update,mark) belong (int == true)
+     *                                    / (add)
+     * else               : list delete help exit
+     */
     public String[] parse(String input) {
         logger.info("parsing input= {}", input);
 
@@ -48,13 +61,18 @@ public class CliParser {
         return removeQuote(inputParts);
     }
 
+    //TODO & INFO
+    /**
+     * - Removes quote
+     * - Return empty quoted blank space ( not null )
+     * !! change to simple substring, parsing is handle at {@method parse }
+     */
     private String[] removeQuote(String[] in) {
         logger.info("Removing string");
 
         for (int i = 0; i < in.length; i++) {
             String part = in[i];
 
-            // Process only if part contains a quote and is not blank.
             if (part.contains("\"") && !part.isBlank()) {
                 int firstQuoteIndex = part.indexOf('"');
                 int lastQuoteIndex = part.lastIndexOf('"');
@@ -67,7 +85,6 @@ public class CliParser {
                     String temp = part.substring(firstQuoteIndex + 1, lastQuoteIndex);
                     logger.trace("[{}] removed quote string= {}", i, temp);
 
-                    // Avoid returning a null or empty string.
                     if (!temp.trim().isEmpty()) {
                         logger.trace("[{}] appending not empty index element {}: {}", i, temp);
                         in[i] = temp;
@@ -80,5 +97,4 @@ public class CliParser {
         logger.debug("returning input {} ", Arrays.asList(in));
         return in;
     }
-
 }
