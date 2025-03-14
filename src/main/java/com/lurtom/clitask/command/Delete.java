@@ -15,10 +15,10 @@ public class Delete extends BaseCommand implements Command {
     }
 
     public void execute(String[] args) {
-        String taskInfoFormat = confLoader.getValue("delete.format");
-        String inputNullOrEmpty = confLoader.getValue("delete.error.input.null");
-        String inputInvalidErr = confLoader.getValue("delete.error.input.invalid");
-        String outputNullErr = confLoader.getValue("delete.error.output.null");
+        final String taskInfoFormat = confLoader.getValue("delete.format");
+        final String inputNullOrEmpty = confLoader.getValue("delete.error.input.null");
+        final String inputInvalidErr = confLoader.getValue("delete.error.input.invalid");
+        final String outputNullErr = confLoader.getValue("delete.error.output.null");
 
         int deleteId = 0;
         try {
@@ -31,17 +31,17 @@ public class Delete extends BaseCommand implements Command {
             throw new IllegalArgumentException(String.format(inputNullOrEmpty, args[1]));
         }
 
-        Optional<Task> deletedTask = repository.delete(deleteId);
+        final Optional<Task> deletedTask = repository.delete(deleteId);
 
         deletedTask.ifPresentOrElse(
-                        t -> CLIRenderer.message(String.format(CLIColor.RED + taskInfoFormat + CLIColor.RESET,
-                                        t.getId(), t.getDescription(), t.getStatus().getValueStr(),
-                                        CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
-                                        CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))),
-                        () -> {
-                            logger.warn("Can't delete task, task is null?");
-                            CLIRenderer.message(outputNullErr);
-                        });
+                t -> CLIRenderer.message(String.format(CLIColor.RED + taskInfoFormat + CLIColor.RESET,
+                        t.getId(), t.getDescription(), t.getStatus().getValueStr(),
+                        CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
+                        CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))),
+                () -> {
+                    logger.warn("Can't delete task, task is null?");
+                    CLIRenderer.message(outputNullErr);
+                });
     }
 
     @Override

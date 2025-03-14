@@ -30,8 +30,8 @@ public class Logger {
 
     private static void cleanUpHelper(Path file) {
         try {
-            LocalDateTime time = LocalDateTime.ofInstant( //
-                            Files.getLastModifiedTime(file).toInstant(), ZoneId.systemDefault());
+            final LocalDateTime time = LocalDateTime.ofInstant( //
+                    Files.getLastModifiedTime(file).toInstant(), ZoneId.systemDefault());
 
             if (time.isBefore(LocalDateTime.now().minusDays(DEFAULT_REMOVAL_DAY))) {
                 System.out.println("deleting: " + file.getFileName());
@@ -52,7 +52,7 @@ public class Logger {
      */
     private static Path getPath() throws IOException {
         try {
-            Path path = Paths.get(DEFAULT_LOG_PATH);
+            final Path path = Paths.get(DEFAULT_LOG_PATH);
             if (!Files.exists(path)) {
                 Files.createDirectory(path);
             }
@@ -74,8 +74,8 @@ public class Logger {
         if (message == null) {
             return "";
         }
-        StringBuilder sb = new StringBuilder();
-        String[] components = message.split("\\{}", -1);
+        final StringBuilder sb = new StringBuilder();
+        final String[] components = message.split("\\{}", -1);
         int argIndex = 0;
 
         for (int i = 0; i < components.length; i++) {
@@ -92,8 +92,8 @@ public class Logger {
         try (Stream<Path> entries = Files.walk(Paths.get(DEFAULT_LOG_PATH))) {
             System.out.println("Cleaning up log files");
             entries.filter(Files::isRegularFile) //
-                            .filter(file -> file.toString().endsWith((".log"))) //
-                            .forEach(Logger::cleanUpHelper);
+                    .filter(file -> file.toString().endsWith((".log"))) //
+                    .forEach(Logger::cleanUpHelper);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,12 +127,12 @@ public class Logger {
     }
 
     private String getSource() {
-        StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
         for (StackTraceElement e : ste) {
             if (!e.getClassName().equals(this.getClass().getName()) && //
-                            !e.getMethodName().equals("getStackTrace") && //
-                            !e.getMethodName().startsWith("lambda") && //
-                            !e.getClassName().startsWith("java.util")) {
+                    !e.getMethodName().equals("getStackTrace") && //
+                    !e.getMethodName().startsWith("lambda") && //
+                    !e.getClassName().startsWith("java.util")) {
                 // remove artifact & org from method name
                 return e.getClassName().split("[.]", 4)[3] + "." + e.getMethodName();
             }
@@ -156,14 +156,14 @@ public class Logger {
         if (!isTrace && level == Level.TRACE) {
             return;
         }
-        String today = LocalDateTime.now().format(FILE_TIME_FORMAT);
+        final String today = LocalDateTime.now().format(FILE_TIME_FORMAT);
 
         try {
-            Path pathName = getPath();
-            String source = getSource();
-            String parsedMessage = logMessageHelper(message, args);
-            String logMessage = String.format(LOG_FORMAT, LocalDateTime.now(), level, source, parsedMessage);
-            Path path = pathName.resolve(today + ".log");
+            final Path pathName = getPath();
+            final String source = getSource();
+            final String parsedMessage = logMessageHelper(message, args);
+            final String logMessage = String.format(LOG_FORMAT, LocalDateTime.now(), level, source, parsedMessage);
+            final Path path = pathName.resolve(today + ".log");
             Files.writeString(path, logMessage + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("Log failed" + e.getMessage());

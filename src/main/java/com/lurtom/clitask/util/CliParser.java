@@ -31,17 +31,17 @@ public class CliParser {
             return new String[0];
         }
 
-        String[] inputParts = input.split(" ", 2);
+        final String[] inputParts = input.split(" ", 2);
         logger.debug("input split once = {}", Arrays.asList(inputParts));
         if (inputParts.length < 2) {
             logger.debug("input length < 2 return list = {}", Arrays.asList(inputParts));
             return inputParts;
         }
 
-        int quoteIndex = inputParts[1].indexOf('"');
+        final int quoteIndex = inputParts[1].indexOf('"');
         logger.debug("quote index in parser= {}", quoteIndex);
 
-        String[] threeParts = input.split(" ", 3);
+        final String[] threeParts = input.split(" ", 3);
         logger.debug("args list split twice = {}", Arrays.asList(threeParts));
 
         if (quoteIndex == -1 && threeParts.length == 3) {
@@ -54,7 +54,7 @@ public class CliParser {
         }
 
         if (quoteIndex != 0 && inputParts[1].charAt(quoteIndex - 1) == ' ') {
-            String[] parsedPart = inputParts[1].split(" ", 2);
+            final String[] parsedPart = inputParts[1].split(" ", 2);
             logger.debug("space before quote found, second split= {}", Arrays.asList(parsedPart));
             return removeQuote(parsedPart);
         }
@@ -71,18 +71,18 @@ public class CliParser {
         logger.info("Removing string");
 
         for (int i = 0; i < in.length; i++) {
-            String part = in[i];
+            final String part = in[i];
 
             if (part.contains("\"") && !part.isBlank()) {
-                int firstQuoteIndex = part.indexOf('"');
-                int lastQuoteIndex = part.lastIndexOf('"');
+                final int firstQuoteIndex = part.indexOf('"');
+                final int lastQuoteIndex = part.lastIndexOf('"');
                 logger.trace("[{}] quote index [first, last]= [{}, {}]", i, firstQuoteIndex, lastQuoteIndex);
 
                 if (lastQuoteIndex == firstQuoteIndex) {
                     logger.warn("[{}] only one quote found, but still handle no quote for string", i);
                     CLIRenderer.warn("Description must be enclosed with \"");
                 } else {
-                    String temp = part.substring(firstQuoteIndex + 1, lastQuoteIndex);
+                    final String temp = part.substring(firstQuoteIndex + 1, lastQuoteIndex);
                     logger.trace("[{}] removed quote string= {}", i, temp);
 
                     if (!temp.trim().isEmpty()) {

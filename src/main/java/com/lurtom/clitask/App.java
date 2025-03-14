@@ -17,7 +17,7 @@ public class App {
     public static void run(CommandHandler ih) {
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
-                String[] cmdArgs = cliParser.parse(sc.nextLine());
+                final String[] cmdArgs = cliParser.parse(sc.nextLine());
                 logger.info("input= {}", Arrays.asList(cmdArgs));
 
                 if (cmdArgs.length == 0) {
@@ -37,9 +37,9 @@ public class App {
     }
 
     public static void main(String[] args) {
-        JsonRepository jr = new JsonRepository();
-        ConfigurationLoader cl = new ConfigurationLoader();
-        CommandHandler ih = new CommandHandler(jr, cl);
+        final JsonRepository jr = new JsonRepository();
+        final ConfigurationLoader cl = new ConfigurationLoader();
+        final CommandHandler ih = new CommandHandler(jr, cl);
         Logger.logDebug();
         Logger.logTrace();
         if (args.length == 0) {

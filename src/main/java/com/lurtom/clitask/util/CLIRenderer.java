@@ -10,40 +10,40 @@ public class CLIRenderer {
     private static final Logger logger = new Logger();
 
     public static void error(String message) {
-        String messageStatus = CLIColor.BOLD_RED + "✕ FAILED " + CLIColor.RESET + message;
+        final String messageStatus = CLIColor.BOLD_RED + "✕ FAILED " + CLIColor.RESET + message;
         log(messageStatus, false);
     }
 
-    public static String formatTime(LocalDateTime ldt, TimeFormat tf) {
+    public static String formatTime(LocalDateTime ldt, final TimeFormat tf) {
         return ldt.format(DateTimeFormatter.ofPattern(tf.getFormat()));
     }
 
     public static void info(String message) {
-        String msg = CLIColor.BOLD_BLUE + message + CLIColor.RESET;
+        final String msg = CLIColor.BOLD_BLUE + message + CLIColor.RESET;
         log(msg, true);
     }
 
     public static void message(String message) {
-        String msg = "  " + message.replace("\n", "\n  ");
+        final String msg = "  " + message.replace("\n", "\n  ");
         log(msg, false);
     }
 
     public static String padding(String message) {
         return "\u001B[2m" + String.format("%-" + (DEFAULT_PADDING - message.length()) + "s ", "").replace(" ", "*")
-                        + "\u001B[0m";
+                + "\u001B[0m";
     }
 
     public static void success(String message) {
-        String msg = CLIColor.BOLD_GREEN + "✓ SUCCESS " + CLIColor.RESET + message;
+        final String msg = CLIColor.BOLD_GREEN + "✓ SUCCESS " + CLIColor.RESET + message;
         log(msg, true);
     }
 
     public static void warn(String message) {
-        String msg = CLIColor.YELLOW + "▽ WARNING " + CLIColor.RESET + message;
+        final String msg = CLIColor.YELLOW + "▽ WARNING " + CLIColor.RESET + message;
         log(msg, false);
     }
 
-    private static void log(String msg, Boolean padding) {
+    private static void log(String msg, final Boolean padding) {
         if (msg == null || msg.isEmpty()) {
             logger.warn("print to screen is null or empty");
             return;
@@ -55,5 +55,6 @@ public class CLIRenderer {
         }
     }
 
-    private CLIRenderer() {}
+    private CLIRenderer() {
+    }
 }

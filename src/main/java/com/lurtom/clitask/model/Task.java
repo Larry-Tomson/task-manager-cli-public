@@ -6,27 +6,14 @@ import java.util.OptionalInt;
 
 public class Task {
     private static int nextId = 1;
-
-    public static void main(String[] args) {}
-
-    public static void setNextId(List<Task> tasks) {
-        if (!tasks.isEmpty()) {
-            OptionalInt currentId = tasks.stream().mapToInt(Task::getId).max();
-            nextId = currentId.getAsInt() + 1;
-        } else {
-            nextId = 1;
-        }
-    }
-
     private LocalDateTime createdTime;
     private String description;
     private int id;
-
     private Status status;
-
     private LocalDateTime updatedTime;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String description, Status status, LocalDateTime createdTime, LocalDateTime updatedTime) {
         this.id = nextId;
@@ -35,6 +22,15 @@ public class Task {
         this.createdTime = createdTime;
         this.updatedTime = updatedTime;
         nextId++;
+    }
+
+    public static void setNextId(List<Task> tasks) {
+        if (!tasks.isEmpty()) {
+            final OptionalInt currentId = tasks.stream().mapToInt(Task::getId).max();
+            nextId = currentId.getAsInt() + 1;
+        } else {
+            nextId = 1;
+        }
     }
 
     public LocalDateTime getCreatedTime() {
@@ -79,13 +75,13 @@ public class Task {
 
     public String toJson() {
         return "{" + "\"id\":\"" + id + "\"" + ", \"description\":\"" + description + "\"" + ", \"status\":\"" + status
-                        + "\"" + ", \"createdTime\":\"" + createdTime + "\"" + ", \"updatedTime\":\"" + updatedTime
-                        + "\"" + "}";
+                + "\"" + ", \"createdTime\":\"" + createdTime + "\"" + ", \"updatedTime\":\"" + updatedTime
+                + "\"" + "}";
     }
 
     @Override
     public String toString() {
         return "Task:" + "id=" + id + ", description='" + description + '\'' + ", status='" + status + '\''
-                        + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime;
+                + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime;
     }
 }

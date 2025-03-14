@@ -16,13 +16,13 @@ public class Update extends BaseCommand implements Command {
     }
 
     public void execute(String[] args) throws NumberFormatException {
-        String updDesId = args[1];
-        String newDes = args[2];
+        final String updDesId = args[1];
+        final String newDes = args[2];
 
-        String taskInfoFormat = confLoader.getValue("update.format");
-        String inputNullOrEmpty = confLoader.getValue("update.error.input.empty");
-        String inputInvalid = confLoader.getValue("update.error.input.invalid");
-        String outputNullErr = confLoader.getValue("update.error.output.null");
+        final String taskInfoFormat = confLoader.getValue("update.format");
+        final String inputNullOrEmpty = confLoader.getValue("update.error.input.empty");
+        final String inputInvalid = confLoader.getValue("update.error.input.invalid");
+        final String outputNullErr = confLoader.getValue("update.error.output.null");
 
         int parsedId = 0;
         try {
@@ -41,7 +41,7 @@ public class Update extends BaseCommand implements Command {
             throw new NumberFormatException(inputInvalid);
         }
 
-        Optional<Task> task = repository.update(parsedId, newDes);
+        final Optional<Task> task = repository.update(parsedId, newDes);
 
         task.ifPresentOrElse(t -> CLIRenderer.message(String.format(taskInfoFormat, t.getId(), //
                 CLIColor.GREEN + t.getDescription() + CLIColor.RESET, //

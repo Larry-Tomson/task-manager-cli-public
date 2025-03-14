@@ -25,8 +25,8 @@ public class ConfigurationLoader {
         System.out.println("Interface language ? \n1.English\n2.Japanese");
         try {
             @SuppressWarnings("resource") // memory leak or something idk, closing it mean halt the app
-            Scanner sc = new Scanner(System.in);
-            int input = sc.nextInt();
+            final Scanner sc = new Scanner(System.in);
+            final int input = sc.nextInt();
             switch (input) {
                 case 1:
                     this.defaultLocale = Locale.ENGLISH;
@@ -38,15 +38,15 @@ public class ConfigurationLoader {
                     throw new IllegalArgumentException("Unsupported language selection: " + input);
             }
             this.rscBundle = loadBundle();
-        } catch (InputMismatchException e) {
+        } catch (final InputMismatchException e) {
             throw new InputMismatchException("Invalid input" + e.getMessage());
         }
     }
 
     private ResourceBundle loadBundle() {
-        ResourceBundle rb = ResourceBundle.getBundle(DEFAULT_BUNDLE_STRING, defaultLocale);
+        final ResourceBundle rb = ResourceBundle.getBundle(DEFAULT_BUNDLE_STRING, defaultLocale);
         logger.info("Initiating configuration with Bundle package= {}, locale= {}, key set size= {} ",
-                        rb.getBaseBundleName(), rb.getLocale().getLanguage(), rb.keySet().size());
+                rb.getBaseBundleName(), rb.getLocale().getLanguage(), rb.keySet().size());
         return rb;
     }
 }

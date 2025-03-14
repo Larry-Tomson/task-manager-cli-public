@@ -21,11 +21,11 @@ public class JsonRepository implements Repository {
 
     private static Path getPath() throws IOException {
         try {
-            Path path = Paths.get(DEFAULT_JSON_PATH);
+            final Path path = Paths.get(DEFAULT_JSON_PATH);
             if (!Files.exists(path)) {
                 Files.createDirectory(path);
             }
-            Path file = path.resolve(DEFAULT_DATABASE_FILE_NAME);
+            final Path file = path.resolve(DEFAULT_DATABASE_FILE_NAME);
 
             if (!Files.exists(file)) {
                 Files.createFile(file);
@@ -40,7 +40,7 @@ public class JsonRepository implements Repository {
 
     private final JsonParser parser = new JsonParser();
 
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public JsonRepository() {
         this.tasks = this.read();
@@ -49,7 +49,7 @@ public class JsonRepository implements Repository {
     }
 
     public Task add(String description) {
-        Task task = new Task(description, Status.PENDING, LocalDateTime.now(), LocalDateTime.now());
+        final Task task = new Task(description, Status.PENDING, LocalDateTime.now(), LocalDateTime.now());
 
         logger.info("new Task id={}, description={}, status={}, date={}", task.getId(), task.getDescription(),
                 task.getStatus(), task.getCreatedTime() //
@@ -59,7 +59,7 @@ public class JsonRepository implements Repository {
     }
 
     public Optional<Task> delete(int id) {
-        Optional<Task> removedTask = tasks.stream().filter(t -> t.getId() == id).findFirst();
+        final Optional<Task> removedTask = tasks.stream().filter(t -> t.getId() == id).findFirst();
 
         removedTask.ifPresent(task -> {
             logger.info("remove task id: {}", id);
@@ -73,8 +73,8 @@ public class JsonRepository implements Repository {
         return tasks;
     }
 
-    public Optional<Task> mark(int id, Status status) {
-        Optional<Task> markTask = tasks.stream().filter(task -> task.getId() == id).findFirst();
+    public Optional<Task> mark(int id, final Status status) {
+        final Optional<Task> markTask = tasks.stream().filter(task -> task.getId() == id).findFirst();
 
         markTask.ifPresent(task -> {
             logger.info("mark task id {}, {} -> {}", id, task.getStatus(), status //
@@ -88,8 +88,8 @@ public class JsonRepository implements Repository {
     public List<Task> read() {
         List<Task> taskList = new ArrayList<>();
         try {
-            Path path = getPath().resolve(DEFAULT_DATABASE_FILE_NAME);
-            String input = Files.readString(path);
+            final Path path = getPath().resolve(DEFAULT_DATABASE_FILE_NAME);
+            final String input = Files.readString(path);
             if (!input.isEmpty()) {
                 taskList = parser.parseString(input);
             }
@@ -99,8 +99,8 @@ public class JsonRepository implements Repository {
         return taskList;
     }
 
-    public Optional<Task> update(int id, String newDescription) {
-        Optional<Task> updateTask = tasks.stream().filter(task -> task.getId() == id).findAny();
+    public Optional<Task> update(int id, final String newDescription) {
+        final Optional<Task> updateTask = tasks.stream().filter(task -> task.getId() == id).findAny();
         updateTask.ifPresent(task -> {
             logger.info("update task id: {}, des: \"{}\" -> \"{}\", time: {} -> {}", id, task.getDescription(),
                     newDescription, task.getUpdatedTime(), LocalDateTime.now());
@@ -112,11 +112,11 @@ public class JsonRepository implements Repository {
 
     public void write() {
 
-        String jsonOutput = tasks.stream() //
+        final String jsonOutput = tasks.stream() //
                 .map(Task::toJson) //
                 .collect(Collectors.joining(", ", "[", "]"));
         try {
-            Path path = getPath().resolve(DEFAULT_DATABASE_FILE_NAME);
+            final Path path = getPath().resolve(DEFAULT_DATABASE_FILE_NAME);
             Files.writeString( //
                     path, jsonOutput, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING //
             );

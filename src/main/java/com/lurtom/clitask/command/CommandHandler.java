@@ -31,8 +31,8 @@ public class CommandHandler {
             return;
         }
 
-        String cmdStr = input[0].toLowerCase();
-        Command cmd = commands.get(cmdStr);
+        final String cmdStr = input[0].toLowerCase();
+        final Command cmd = commands.get(cmdStr);
 
         if (cmd == null) {
             logger.warn("Unknown command: " + "{}", cmdStr);

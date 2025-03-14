@@ -14,9 +14,9 @@ public class Add extends BaseCommand implements Command {
     }
 
     public void execute(String[] args) {
-        String description = args[1];
-        String inputNullErr = confLoader.getValue("add.error.input.null");
-        String taskInfoFormat = confLoader.getValue("add.format");
+        final String description = args[1];
+        final String inputNullErr = confLoader.getValue("add.error.input.null");
+        final String taskInfoFormat = confLoader.getValue("add.format");
         logger.info("Adding description \"{}\" as new task", description);
 
         if (description == null || description.isEmpty()) {
@@ -25,19 +25,19 @@ public class Add extends BaseCommand implements Command {
             return;
         }
 
-        Task task = repository.add(description);
-        String taskDescription = task.getDescription();
-        String coloredFormat = CLIColor.GREEN + taskInfoFormat + CLIColor.RESET;
+        final Task task = repository.add(description);
+        final String taskDescription = task.getDescription();
+        final String coloredFormat = CLIColor.GREEN + taskInfoFormat + CLIColor.RESET;
 
         logger.info("Added new task with task id={} description={} status={}", task.getId(), taskDescription,
-                        task.getStatus() //
+                task.getStatus() //
         );
 
         CLIRenderer.message(String.format(coloredFormat, task.getId(), //
-                        getTruncatedDescription(taskDescription), //
-                        task.getStatus().getValueStr(), //
-                        CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG), //
-                        CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG)));
+                getTruncatedDescription(taskDescription), //
+                task.getStatus().getValueStr(), //
+                CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG), //
+                CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG)));
     }
 
     @Override
@@ -47,6 +47,6 @@ public class Add extends BaseCommand implements Command {
 
     private String getTruncatedDescription(String taskDescription) {
         return taskDescription.length() < 49 ? //
-                        taskDescription : taskDescription.substring(0, 49) + " ...";
+                taskDescription : taskDescription.substring(0, 49) + " ...";
     }
 }

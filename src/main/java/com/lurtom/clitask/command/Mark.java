@@ -20,26 +20,26 @@ public class Mark extends BaseCommand implements Command {
     @Override
     public void execute(String[] args) throws IllegalArgumentException {
 
-        String taskInfoFormat = confLoader.getValue("mark.format");
-        String inputNullOrEmpty = confLoader.getValue("mark.error.input.empty");
-        String outputNullErr = confLoader.getValue("mark.error.output.null");
+        final String taskInfoFormat = confLoader.getValue("mark.format");
+        final String inputNullOrEmpty = confLoader.getValue("mark.error.input.empty");
+        final String outputNullErr = confLoader.getValue("mark.error.output.null");
 
-        String id = args[1];
-        int markId = parseInt(id);
+        final String id = args[1];
+        final int markId = parseInt(id);
 
-        String status = args[2];
-        Status stt = Status.getEnum(status);
+        final String status = args[2];
+        final Status stt = Status.getEnum(status);
         if (stt == null) {
             CLIRenderer.error(inputNullOrEmpty);
             return;
         }
 
-        Optional<Task> task = repository.mark(markId, stt);
+        final Optional<Task> task = repository.mark(markId, stt);
         task.ifPresentOrElse(t -> {
             logger.info("Mark task id: " + t.getId() + "-> " + stt.getValueStr());
             CLIRenderer.message(String.format(taskInfoFormat, t.getId(), t.getDescription(),
-                            t.getStatus().getColorStr(), CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
-                            CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG)));
+                    t.getStatus().getColorStr(), CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
+                    CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG)));
         }, () -> {
             logger.warn("Mark task failed, task is null");
             CLIRenderer.error(outputNullErr);
@@ -52,7 +52,7 @@ public class Mark extends BaseCommand implements Command {
     }
 
     private int parseInt(String id) {
-        String inputInvalid = confLoader.getValue("mark.error.input.invalid");
+        final String inputInvalid = confLoader.getValue("mark.error.input.invalid");
         int markId = 0;
         try {
             markId = Integer.parseInt(id);
