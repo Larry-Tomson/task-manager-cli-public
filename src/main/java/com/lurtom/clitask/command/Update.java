@@ -1,29 +1,15 @@
 package com.lurtom.clitask.command;
 
-<<<<<<< HEAD
-import com.lurtom.clitask.util.*;
-
-import java.util.Optional;
-
-=======
->>>>>>> main
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.Task;
 import com.lurtom.clitask.model.TimeFormat;
 import com.lurtom.clitask.repository.Repository;
-<<<<<<< HEAD
-
-public class Update extends BaseCommand implements Command {
-    private final Logger logger = new Logger();
-    private static final int ARGS_COUNT = 3;
-=======
 import com.lurtom.clitask.util.*;
 import java.util.Optional;
 
 public class Update extends BaseCommand implements Command {
     private static final int ARGS_COUNT = 3;
     private final Logger logger = new Logger();
->>>>>>> main
 
     public Update(Repository repository, ConfigurationLoader confLoader) {
         super(repository, confLoader, ARGS_COUNT);
@@ -57,20 +43,11 @@ public class Update extends BaseCommand implements Command {
 
         Optional<Task> task = repository.update(parsedId, newDes);
 
-<<<<<<< HEAD
-        task.ifPresentOrElse(t -> CLIRenderer.message(String.format(taskInfoFormat,
-                t.getId(),
-                CLIColor.GREEN + t.getDescription() + CLIColor.RESET,
-                t.getStatus().getValueStr(),
-                CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
-                CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))),
-=======
         task.ifPresentOrElse(t -> CLIRenderer.message(String.format(taskInfoFormat, t.getId(), //
                 CLIColor.GREEN + t.getDescription() + CLIColor.RESET, //
                 t.getStatus().getValueStr(), //
                 CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG), //
                 CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))), //
->>>>>>> main
                 () -> {
                     logger.warn("Task created failed, task is null");
                     CLIRenderer.message(outputNullErr);
@@ -81,8 +58,4 @@ public class Update extends BaseCommand implements Command {
     public String getHelp() {
         return confLoader.getValue("update.helpMessage");
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main

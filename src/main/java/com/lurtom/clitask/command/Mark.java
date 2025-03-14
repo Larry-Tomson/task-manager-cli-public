@@ -1,25 +1,13 @@
 package com.lurtom.clitask.command;
 
-<<<<<<< HEAD
-import com.lurtom.clitask.repository.Repository;
-
-import java.util.Optional;
-
-=======
->>>>>>> main
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.Status;
 import com.lurtom.clitask.model.Task;
 import com.lurtom.clitask.model.TimeFormat;
-<<<<<<< HEAD
-import com.lurtom.clitask.util.CLIRenderer;
-import com.lurtom.clitask.util.ConfigurationLoader;
-=======
 import com.lurtom.clitask.repository.Repository;
 import com.lurtom.clitask.util.CLIRenderer;
 import com.lurtom.clitask.util.ConfigurationLoader;
 import java.util.Optional;
->>>>>>> main
 
 public class Mark extends BaseCommand implements Command {
     private static final int ARGS_COUNT = 3;
@@ -47,23 +35,6 @@ public class Mark extends BaseCommand implements Command {
         }
 
         Optional<Task> task = repository.mark(markId, stt);
-<<<<<<< HEAD
-        task.ifPresentOrElse(
-                t -> {
-                    logger.info("Mark task id: " + t.getId() + "-> " + stt.getValueStr());
-                    CLIRenderer.message(String.format(taskInfoFormat,
-                            t.getId(),
-                            t.getDescription(),
-                            t.getStatus().getColorStr(),
-                            CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
-                            CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG)));
-                },
-                () -> {
-                    logger.warn("Mark task failed, task is null");
-                    CLIRenderer.error(outputNullErr);
-
-                });
-=======
         task.ifPresentOrElse(t -> {
             logger.info("Mark task id: " + t.getId() + "-> " + stt.getValueStr());
             CLIRenderer.message(String.format(taskInfoFormat, t.getId(), t.getDescription(),
@@ -73,7 +44,6 @@ public class Mark extends BaseCommand implements Command {
             logger.warn("Mark task failed, task is null");
             CLIRenderer.error(outputNullErr);
         });
->>>>>>> main
     }
 
     @Override

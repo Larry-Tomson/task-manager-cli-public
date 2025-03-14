@@ -1,13 +1,7 @@
 package com.lurtom.clitask.model;
 
 public enum TimeFormat {
-<<<<<<< HEAD
-
-    SHORT("MM/dd HH:mm"),
-    LONG("yy/MM/dd HH:mm");
-=======
     LONG("yy/MM/dd HH:mm"), SHORT("MM/dd HH:mm");
->>>>>>> main
 
     private String format;
 
@@ -18,8 +12,4 @@ public enum TimeFormat {
     public String getFormat() {
         return format;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main

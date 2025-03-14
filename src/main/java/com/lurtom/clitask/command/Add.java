@@ -1,15 +1,5 @@
 package com.lurtom.clitask.command;
 
-<<<<<<< HEAD
-import com.lurtom.clitask.repository.*;
-import com.lurtom.clitask.logger.Logger;
-import com.lurtom.clitask.model.*;
-import com.lurtom.clitask.util.*;
-
-public class Add extends BaseCommand implements Command {
-    private final Logger logger = new Logger();
-    private static final int ARGS_COUNT = 2;
-=======
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.model.*;
 import com.lurtom.clitask.repository.*;
@@ -18,7 +8,6 @@ import com.lurtom.clitask.util.*;
 public class Add extends BaseCommand implements Command {
     private static final int ARGS_COUNT = 2;
     private final Logger logger = new Logger();
->>>>>>> main
 
     public Add(Repository repository, ConfigurationLoader confLoader) {
         super(repository, confLoader, ARGS_COUNT);
@@ -37,21 +26,6 @@ public class Add extends BaseCommand implements Command {
         }
 
         Task task = repository.add(description);
-<<<<<<< HEAD
-        logger.info("Added new task with task id={} description={} status={}",
-                task.getId(),
-                task.getDescription(),
-                task.getStatus() //
-        );
-        CLIRenderer.message(String.format(
-                CLIColor.GREEN + taskInfoFormat + CLIColor.RESET,
-                task.getId(),
-                task.getDescription().length() < 49 ? task.getDescription()
-                        : task.getDescription().substring(0, 49) + " ...",
-                task.getStatus().getValueStr(),
-                CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG),
-                CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG)));
-=======
         String taskDescription = task.getDescription();
         String coloredFormat = CLIColor.GREEN + taskInfoFormat + CLIColor.RESET;
 
@@ -64,20 +38,15 @@ public class Add extends BaseCommand implements Command {
                         task.getStatus().getValueStr(), //
                         CLIRenderer.formatTime(task.getCreatedTime(), TimeFormat.LONG), //
                         CLIRenderer.formatTime(task.getUpdatedTime(), TimeFormat.LONG)));
->>>>>>> main
     }
 
     @Override
     public String getHelp() {
         return confLoader.getValue("add.helpMessage");
     }
-<<<<<<< HEAD
-}
-=======
 
     private String getTruncatedDescription(String taskDescription) {
         return taskDescription.length() < 49 ? //
                         taskDescription : taskDescription.substring(0, 49) + " ...";
     }
 }
->>>>>>> main
