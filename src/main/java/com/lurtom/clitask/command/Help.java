@@ -15,12 +15,15 @@ public class Help implements Command {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean validateArgsCount(String[] args) {
         // do nothing
         return true;
     }
 
     @Override
+=======
+>>>>>>> main
     public int getArgsCount() {
         // do nothing
         return 0;
@@ -31,4 +34,13 @@ public class Help implements Command {
         return "";
         // do nothing
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public boolean validateArgsCount(String[] args) {
+        // do nothing
+        return true;
+    }
+>>>>>>> main
 }

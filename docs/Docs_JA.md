@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 以下は、自然な日本語に翻訳した内容です。
 
 ---
 
->>>>>>> main
 # タスクトラッカー コマンドラインインターフェース
 
 やるべきこと、完了したこと、そして現在取り組んでいることを管理するシンプルなタスクトラッカーです。
@@ -32,11 +29,7 @@
 git clone https://github.com/Larry-Tomson/task-manager-cli-public.git
 cd task-manager-cli-public
 mvn clean install
-<<<<<<< HEAD
-```
-=======
 ```6
->>>>>>> main
 
 ## 使用方法
 
@@ -108,23 +101,14 @@ delete 1
 "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
-<<<<<<< HEAD
-            "args": [
-=======
             "icon": "terminal-powershell",
             "args": [
                 "-NoExit",
                 "/c",
->>>>>>> main
                 "chcp.com 65001"
             ]
         },
         "Command Prompt": {
-<<<<<<< HEAD
-            "args": [
-                "chcp.com 65001"
-            ],
-=======
             "path": [
                 "${env:windir}\\Sysnative\\cmd.exe",
                 "${env:windir}\\System32\\cmd.exe"
@@ -135,7 +119,6 @@ delete 1
                 "chcp.com 65001"
             ],
             "icon": "terminal-cmd"
->>>>>>> main
         },
         "Git Bash": {
             "source": "Git Bash",

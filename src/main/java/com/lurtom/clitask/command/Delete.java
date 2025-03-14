@@ -1,10 +1,17 @@
 package com.lurtom.clitask.command;
 
+<<<<<<< HEAD
 import com.lurtom.clitask.util.*;
 import com.lurtom.clitask.repository.*;
 import com.lurtom.clitask.model.*;
 import com.lurtom.clitask.logger.*;
 
+=======
+import com.lurtom.clitask.logger.*;
+import com.lurtom.clitask.model.*;
+import com.lurtom.clitask.repository.*;
+import com.lurtom.clitask.util.*;
+>>>>>>> main
 import java.util.Optional;
 
 public class Delete extends BaseCommand implements Command {
@@ -34,6 +41,7 @@ public class Delete extends BaseCommand implements Command {
 
         Optional<Task> deletedTask = repository.delete(deleteId);
 
+<<<<<<< HEAD
         deletedTask.ifPresentOrElse(t -> CLIRenderer.message(String.format(
                 CLIColor.RED + taskInfoFormat + CLIColor.RESET,
                 t.getId(),
@@ -45,10 +53,25 @@ public class Delete extends BaseCommand implements Command {
                     logger.warn("Can't delete task, task is null?");
                     CLIRenderer.message(outputNullErr);
                 });
+=======
+        deletedTask.ifPresentOrElse(
+                        t -> CLIRenderer.message(String.format(CLIColor.RED + taskInfoFormat + CLIColor.RESET,
+                                        t.getId(), t.getDescription(), t.getStatus().getValueStr(),
+                                        CLIRenderer.formatTime(t.getCreatedTime(), TimeFormat.LONG),
+                                        CLIRenderer.formatTime(t.getUpdatedTime(), TimeFormat.LONG))),
+                        () -> {
+                            logger.warn("Can't delete task, task is null?");
+                            CLIRenderer.message(outputNullErr);
+                        });
+>>>>>>> main
     }
 
     @Override
     public String getHelp() {
         return confLoader.getValue("delete.helpMessage");
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

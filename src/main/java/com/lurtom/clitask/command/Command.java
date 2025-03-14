@@ -1,6 +1,7 @@
 package com.lurtom.clitask.command;
 
 public interface Command {
+<<<<<<< HEAD
     default boolean validateArgsCount(String[] args) throws IllegalArgumentException {
         return args.length == this.getArgsCount();
     }
@@ -11,3 +12,15 @@ public interface Command {
 
     String getHelp();
 }
+=======
+    void execute(String[] args) throws IllegalArgumentException;
+
+    int getArgsCount();
+
+    String getHelp();
+
+    default boolean validateArgsCount(String[] args) throws IllegalArgumentException {
+        return args.length == this.getArgsCount();
+    }
+}
+>>>>>>> main

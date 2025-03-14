@@ -1,52 +1,33 @@
-<<<<<<< HEAD
-=======
-以下は、自然な日本語に翻訳した内容です。
+# Task Tracker Command Line Interface
+Simple task tracker to track what you need to do, what you have done, and what you are currently working on.
+### Table of Contents
+- [Feature](#feature)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Demo](#demo)
+- [Requirement](#Requirement)
+## Feature
+1) Render long description task
+![alt text](img/image-6.png)
+2) Logger
+![alt text](img/image-8.png)
+3) Language support for Japanese and English
 
----
-
->>>>>>> main
-# タスクトラッカー コマンドラインインターフェース
-
-やるべきこと、完了したこと、そして現在取り組んでいることを管理するシンプルなタスクトラッカーです。
-
-### 目次
-- [機能](#機能)
-- [インストール](#インストール)
-- [使用方法](#使用方法)
-- [デモ](#デモ)
-- [要件](#要件)
-
-## 機能
-1) タスクの詳細説明を表示  
-   ![alt text](img/image-6.png)
-
-2) ロガー機能  
-   ![alt text](img/image-8.png)
-
-3) 日本語と英語の言語サポート
-
-## インストール
-詳細は[要件](#要件)を参照してください
-
+## Installation
+See [Requirement](#Requirement) 
 ```bash
 git clone https://github.com/Larry-Tomson/task-manager-cli-public.git
 cd task-manager-cli-public
 mvn clean install
-<<<<<<< HEAD
 ```
-=======
-```6
->>>>>>> main
 
-## 使用方法
-
-### コマンドライン引数を渡す場合
+## Usage
+Passing Command-Line Arguments:
 ```bash
     mvn package
     java -jar target/task-manager-{version}.jar <arguments>
 ```
-
-*例*
+*example*
 ```bash
 java -jar target/task-manager-1.2.0.jar help
 java -jar target/task-manager-1.2.0.jar add "hello world"
@@ -54,77 +35,60 @@ java -jar target/task-manager-1.2.0.jar mark 1 completed
 java -jar target/task-manager-1.2.0.jar delete 1
 ```
 
-### インタラクティブモード
+Interactive mode
 
 ```bash
     mvn clean install
     java -jar target/task-manager-{version}.jar
 ```
-
-*例*
+*example*
 ```bash
-help
-add "hello world"
-mark 1 completed
-delete 1
+    help
+    add "hello world"
+    mark 1 completed
+    delete 1
 ```
 
-## デモ
-1) 新規タスクの追加  
-   ![alt text](img/image.png)
+## Demo
+1) Add new task
+![alt text](img/image.png)
+2) Update current task
+![alt text](img/image-2.png)
+3) Mark status
+![alt text](img/image-3.png)
+4) delete
+![alt text](img/image-1.png)
+5) List all
+![alt text](img/image-4.png)
+6) List by id
+![alt text](img/image-5.png)
 
-2) 現在のタスクの更新  
-   ![alt text](img/image-2.png)
 
-3) ステータスの変更  
-   ![alt text](img/image-3.png)
+## Requirement
+### Run environment
+- **Java Development Kit (JDK) 11 or later**  
+  The project requires JDK 11 or above.  
+  - [Download OpenJDK](https://jdk.java.net/)
+  - [Oracle JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
 
-4) タスクの削除  
-   ![alt text](img/image-1.png)
+- **Apache Maven 3.6.0 or later**  
+  Maven is used to manage the project build lifecycle and dependencies.  
+  [Maven Installation Guide](https://maven.apache.org/install.html)
 
-5) すべてのタスクを表示  
-   ![alt text](img/image-4.png)
-
-6) ID指定でタスクを表示  
-   ![alt text](img/image-5.png)
-
-## 要件
-
-### 実行環境
-
-- **Java Development Kit (JDK) 11以上**  
-  本プロジェクトの実行にはJDK 11以上が必要です。  
-  - [OpenJDKのダウンロード](https://jdk.java.net/)
-  - [Oracle JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
-
-- **Apache Maven 3.6.0以上**  
-  Mavenはプロジェクトのビルドライフサイクルおよび依存関係の管理に使用されます。  
-  [Mavenのインストールガイド](https://maven.apache.org/install.html)
-
-### VSCodeサポート
-
-#### VSCode 統合ターミナルの日本語サポート
+### Vscode support
+#### Japanese support for vscode integrated terminal
 ```json
 "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
-<<<<<<< HEAD
-            "args": [
-=======
             "icon": "terminal-powershell",
             "args": [
                 "-NoExit",
                 "/c",
->>>>>>> main
                 "chcp.com 65001"
             ]
         },
         "Command Prompt": {
-<<<<<<< HEAD
-            "args": [
-                "chcp.com 65001"
-            ],
-=======
             "path": [
                 "${env:windir}\\Sysnative\\cmd.exe",
                 "${env:windir}\\System32\\cmd.exe"
@@ -135,7 +99,6 @@ delete 1
                 "chcp.com 65001"
             ],
             "icon": "terminal-cmd"
->>>>>>> main
         },
         "Git Bash": {
             "source": "Git Bash",
@@ -149,9 +112,9 @@ delete 1
         }
     },
 ```
-#### VSCode でのログファイルのカラーサポート
-VSCode の `./setting.json` に以下の文字ルールを追加してください。
 
+#### Color support for log file in vscode
+Add the following text rules to `./setting.json` in your vscode.
 ```json
  "editor.tokenColorCustomizations": {
         "textMateRules": [
@@ -231,3 +194,5 @@ VSCode の `./setting.json` に以下の文字ルールを追加してくださ�
         ]
     },
 ```
+
+
