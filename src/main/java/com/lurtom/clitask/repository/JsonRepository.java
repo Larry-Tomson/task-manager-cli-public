@@ -52,7 +52,7 @@ public class JsonRepository implements Repository {
         Task task = new Task(description, Status.PENDING, LocalDateTime.now(), LocalDateTime.now());
 
         logger.info("new Task id={}, description={}, status={}, date={}", task.getId(), task.getDescription(),
-                        task.getStatus(), task.getCreatedTime() //
+                task.getStatus(), task.getCreatedTime() //
         );
         tasks.add(task);
         return task;
@@ -102,11 +102,10 @@ public class JsonRepository implements Repository {
     public Optional<Task> update(int id, String newDescription) {
         Optional<Task> updateTask = tasks.stream().filter(task -> task.getId() == id).findAny();
         updateTask.ifPresent(task -> {
-            LocalDateTime now = LocalDateTime.now();
             logger.info("update task id: {}, des: \"{}\" -> \"{}\", time: {} -> {}", id, task.getDescription(),
-                            newDescription, task.getUpdatedTime(), now);
+                    newDescription, task.getUpdatedTime(), LocalDateTime.now());
             task.setDescription(newDescription);
-            task.setUpdatedTime(now);
+            task.setUpdatedTime(LocalDateTime.now());
         });
         return updateTask;
     }
@@ -114,12 +113,12 @@ public class JsonRepository implements Repository {
     public void write() {
 
         String jsonOutput = tasks.stream() //
-                        .map(Task::toJson) //
-                        .collect(Collectors.joining(", ", "[", "]"));
+                .map(Task::toJson) //
+                .collect(Collectors.joining(", ", "[", "]"));
         try {
             Path path = getPath().resolve(DEFAULT_DATABASE_FILE_NAME);
             Files.writeString( //
-                            path, jsonOutput, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING //
+                    path, jsonOutput, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING //
             );
         } catch (IOException e) {
             logger.error("unable to write to file", e);
