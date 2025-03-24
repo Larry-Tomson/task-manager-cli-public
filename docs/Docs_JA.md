@@ -15,10 +15,10 @@
 
 ## 機能
 1) タスクの詳細説明を表示  
-   ![alt text](img/image-6.png)
+   ![alt text](../img/image-6.png)
 
 2) ロガー機能  
-   ![alt text](img/image-8.png)
+   ![alt text](../img/image-8.png)
 
 3) 日本語と英語の言語サポート
 
@@ -64,22 +64,22 @@ delete 1
 
 ## デモ
 1) 新規タスクの追加  
-   ![alt text](img/image.png)
+   ![alt text](../img/image.png)
 
 2) 現在のタスクの更新  
-   ![alt text](img/image-2.png)
+   ![alt text](../img/image-2.png)
 
 3) ステータスの変更  
-   ![alt text](img/image-3.png)
+   ![alt text](../img/image-3.png)
 
 4) タスクの削除  
-   ![alt text](img/image-1.png)
+   ![alt text](../img/image-1.png)
 
 5) すべてのタスクを表示  
-   ![alt text](img/image-4.png)
+   ![alt text](../img/image-4.png)
 
 6) ID指定でタスクを表示  
-   ![alt text](img/image-5.png)
+   ![alt text](../img/image-5.png)
 
 ## 要件
 
