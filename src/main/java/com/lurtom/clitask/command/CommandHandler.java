@@ -9,19 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandHandler {
-    private final Map<String, Command> commands = new HashMap<>();
     private final ConfigurationLoader configurationLoader;
+    private final Repository repository;
     private final Logger logger = new Logger();
 
     public CommandHandler(Repository repository, ConfigurationLoader configurationLoader) {
         this.configurationLoader = configurationLoader;
-        commands.put("add", new Add(repository, configurationLoader));
-        commands.put("delete", new Delete(repository, configurationLoader));
-        commands.put("list", new ListTask(repository, configurationLoader));
-        commands.put("update", new Update(repository, configurationLoader));
-        commands.put("mark", new Mark(repository, configurationLoader));
-        commands.put("help", new Help(configurationLoader));
-        commands.put("exit", new Exit(repository, configurationLoader));
+        this.repository = repository;
     }
 
     public void runCmd(String[] input) {
@@ -32,7 +26,7 @@ public class CommandHandler {
         }
 
         final String cmdStr = input[0].toLowerCase();
-        final Command cmd = commands.get(cmdStr);
+        final Command cmd = createCommand(cmdStr);
 
         if (cmd == null) {
             logger.warn("Unknown command: " + "{}", cmdStr);
@@ -56,4 +50,26 @@ public class CommandHandler {
             CLIRenderer.error(e.getMessage());
         }
     }
+
+    private Command createCommand(String commandString) {
+        switch (commandString.toLowerCase()) {
+            case "add":
+                return new Add(repository, configurationLoader);
+            case "delete":
+                return new Delete(repository, configurationLoader);
+            case "list":
+                return new ListTask(repository, configurationLoader);
+            case "update":
+                return new Update(repository, configurationLoader);
+            case "mark":
+                return new Mark(repository, configurationLoader);
+            case "help":
+                return new Help(configurationLoader);
+            case "exit":
+                return new Exit(repository, configurationLoader);
+            default:
+                return null;
+        }
+    }
+
 }
