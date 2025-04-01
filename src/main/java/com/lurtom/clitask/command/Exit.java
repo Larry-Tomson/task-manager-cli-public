@@ -15,6 +15,7 @@ public class Exit extends BaseCommand implements Command {
     public void execute(String[] args) throws IllegalArgumentException {
         CLIRenderer.info("Cleaning up, exiting");
         repository.write();
+        System.exit(0);
     }
 
     @Override

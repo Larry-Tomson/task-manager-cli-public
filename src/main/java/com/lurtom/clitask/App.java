@@ -17,19 +17,7 @@ public class App {
     public static void run(CommandHandler ih) {
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
-                final String[] cmdArgs = cliParser.parse(sc.nextLine());
-                logger.info("input= {}", Arrays.asList(cmdArgs));
-
-                if (cmdArgs.length == 0) {
-                    logger.warn("input is empty= {}", Arrays.asList(cmdArgs).isEmpty());
-                    CLIRenderer.error("Input is empty");
-                    continue;
-                }
-
-                ih.runCmd(cmdArgs);
-                if (cmdArgs[0].equals("exit")) {
-                    return;
-                }
+                ih.parseThenRun(sc.nextLine());
             }
         } catch (Exception e) {
             logger.error("Failed due to {}", e);

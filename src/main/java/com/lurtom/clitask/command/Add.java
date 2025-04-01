@@ -17,6 +17,7 @@ public class Add extends BaseCommand implements Command {
         final String description = args[1];
         final String inputNullErr = confLoader.getValue("add.error.input.null");
         final String taskInfoFormat = confLoader.getValue("add.format");
+        
         logger.info("Adding description \"{}\" as new task", description);
 
         if (description == null || description.isEmpty()) {

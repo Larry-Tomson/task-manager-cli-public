@@ -28,7 +28,7 @@ public class Update extends BaseCommand implements Command {
         try {
             parsedId = Integer.parseInt(updDesId);
             if (newDes.isEmpty()) {
-                logger.warn("input is empty ");
+                logger.warn("input is empty");
                 CLIRenderer.error(inputNullOrEmpty);
                 return;
             }

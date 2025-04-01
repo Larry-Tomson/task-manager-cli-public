@@ -1,16 +1,18 @@
 package com.lurtom.clitask.command;
 
+import java.util.Arrays;
+
 import com.lurtom.clitask.logger.Logger;
 import com.lurtom.clitask.repository.Repository;
 import com.lurtom.clitask.util.CLIColor;
 import com.lurtom.clitask.util.CLIRenderer;
+import com.lurtom.clitask.util.CliParser;
 import com.lurtom.clitask.util.ConfigurationLoader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommandHandler {
     private final ConfigurationLoader configurationLoader;
     private final Repository repository;
+    private final CliParser cliParser = new CliParser();
     private final Logger logger = new Logger();
 
     public CommandHandler(Repository repository, ConfigurationLoader configurationLoader) {
@@ -18,10 +20,21 @@ public class CommandHandler {
         this.repository = repository;
     }
 
+    public void parseThenRun(String input) {
+        final String[] parsedInput = cliParser.parse(input);
+        if (parsedInput[0].equals("parser.invalid")) {
+            CLIRenderer.error(configurationLoader.getValue("parser.invalid"));
+            return;
+        }
+        runCmd(parsedInput);
+
+    }
+
     public void runCmd(String[] input) {
+
         if (input == null || input.length == 0) {
+            logger.warn("input is empty= {}", Arrays.asList(input).isEmpty());
             CLIRenderer.error("No command entered!");
-            logger.debug("input empty");
             return;
         }
 
