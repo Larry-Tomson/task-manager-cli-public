@@ -9,7 +9,7 @@ Simple task tracker to track what you need to do, what you have done, and what y
 - [Installation](#installation)
 - [Usage](#usage)
 - [Demo](#demo)
-- [Requirement](#Requirement)＃＃
+- [Requirement](#Requirement)
 ## Feature
 1) Render long description task
 ![alt text](img/image-6.png)
